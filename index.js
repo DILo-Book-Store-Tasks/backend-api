@@ -1,38 +1,10 @@
-// const express = require("express");
-// require("./db");
-// const cors = require("cors");
-// const morgan = require("morgan");
-// const mongoose = require("mongoose");
-// const bodyParser = require("body-parser");
-// const db = require("./config/keys").mongoURI; //impor key
-// mongoose
-//     .connect (db, {useNewUrlParser: true})
-//     .then (() => console.log("DB Konek"))
-//     .catch (err => console.log(err))
-
-
-// const app = express();
-// const port = 8081;
-
-// app.use(bodyParser.urlencoded({extended: true}));
-// app.use(bodyParser.json());
-
-// // Package
-// app.use(cors());
-// app.use(express.json());
-// app.use(morgan("dev"));
-
-
-// //lisen server
-// app.listen(port, () => console.log(`Server Running on Port : ${port}`))
-
-
 const express = require("express");
 require("./db");
 const cors = require("cors");
 const morgan = require("morgan");
 
-const userRouter = require('./src/routers/user')
+const userRouter = require("./src/routers/user");
+const roleRouter = require("./src/routers/role");
 
 const app = express();
 const port = 8081;
@@ -40,7 +12,8 @@ const port = 8081;
 // Package
 app.use(cors());
 app.use(express.json());
-app.use(userRouter)
+app.use(userRouter);
+app.use(roleRouter);
 app.use(morgan("dev"));
 
 app.listen(port, () => console.log(`Server Running on Port : ${port}`));

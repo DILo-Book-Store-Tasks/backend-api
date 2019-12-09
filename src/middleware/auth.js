@@ -4,7 +4,7 @@ const User = require('../models/user')
 const auth = async (req, res, next) => {
   try {
     const token = req.header('Authorization').replace('Bearer ', '')
-    const decoded = jwt.verify(token, `${process.env.KEY_AUTH}`)
+    const decoded = jwt.verify(token, process.env.KEY_AUTH)
     const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
 
     if (!user) {
@@ -21,4 +21,11 @@ const auth = async (req, res, next) => {
   }
 }
 
-module.exports = auth
+const checkRole = async (req, res, next) => {
+    next()
+}
+
+module.exports = {
+    auth,
+    checkRole
+}
