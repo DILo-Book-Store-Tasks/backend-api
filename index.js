@@ -27,15 +27,17 @@
 // app.listen(port, () => console.log(`Server Running on Port : ${port}`))
 
 
-const m = require("mongoose");
+const express = require("express");
+require("./db");
+const cors = require("cors");
+const morgan = require("morgan");
 
-m.connect(
-  `mongodb+srv://${process.env.MONGO_USERS}:${process.env.MONGO_PASWD}@cluster0-8w3b6.mongodb.net/test?retryWrites=true&w=majority`,
-  {
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  },
-  err => console.log(err.message)
-);
+const app = express();
+const port = 8081;
+
+// Package
+app.use(cors());
+app.use(express.json());
+app.use(morgan("dev"));
+
+app.listen(port, () => console.log(`Server Running on Port : ${port}`));
