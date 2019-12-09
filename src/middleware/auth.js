@@ -21,4 +21,11 @@ const auth = async (req, res, next) => {
   }
 }
 
-module.exports = auth
+const checkRole = async (req, res, next) => {
+    next()
+}
+
+module.exports = {
+    auth,
+    checkRole
+}

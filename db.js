@@ -1,7 +1,7 @@
 const m = require("mongoose");
 
 m.connect(
-  `mongodb+srv://${process.env.MONGO_USERS}:${process.env.MONGO_PASWD}@cluster0-8w3b6.mongodb.net/test?retryWrites=true&w=majority`,
+  `mongodb+srv://${process.env.MONGO_USERS}:${process.env.MONGO_PASWD}@cluster0-8w3b6.mongodb.net/book-store?retryWrites=true&w=majority`,
   {
     useCreateIndex: true,
     useFindAndModify: false,

@@ -3,7 +3,8 @@ require("./db");
 const cors = require("cors");
 const morgan = require("morgan");
 
-const userRouter = require('./src/routers/user')
+const userRouter = require("./src/routers/user");
+const roleRouter = require("./src/routers/role");
 
 const app = express();
 const port = 8081;
@@ -11,7 +12,8 @@ const port = 8081;
 // Package
 app.use(cors());
 app.use(express.json());
-app.use(userRouter)
+app.use(userRouter);
+app.use(roleRouter);
 app.use(morgan("dev"));
 
 app.listen(port, () => console.log(`Server Running on Port : ${port}`));
