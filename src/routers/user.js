@@ -5,16 +5,16 @@ const router = new express.Router()
 const multer = require('multer')
 
 router.post('/users', async (req, res) => {
-    console.log('masuk')
-//   const user = new User(req.body)
+  const user = new User(req.body)
+  console.log(user)
 
-//   try {
-//     await user.save()
-//     const token = await user.generateAuthToken()
-//     res.status(201).send({ user, token })
-//   } catch (e) {
-//     res.status(400).send(e)
-//   }
+  try {
+    await user.save()
+    const token = await user.generateAuthToken()
+    res.status(201).send({ user, token })
+  } catch (e) {
+    res.status(400).send(e)
+  }
 })
 
 router.get('/users', auth, async (req, res) => {
