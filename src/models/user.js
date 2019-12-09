@@ -28,6 +28,12 @@ const userSchema = new mongoose.Schema(
       minlength: 6,
       trim: true,
     },
+    role: {
+        type: String,
+        required: true,
+        lowercase: true,
+        trim: true,
+      },
     tokens: [
       {
         token: {
