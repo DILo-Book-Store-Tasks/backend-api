@@ -62,11 +62,11 @@ userSchema.methods.generateAuthToken = async function () {
     return token;
 };
 
-userSchema.virtual("books", {
-    ref: "Book",
-    localField: "_id",
-    foreignField: "owner"
-});
+// userSchema.virtual("books", {
+//     ref: "Book",
+//     localField: "_id",
+//     foreignField: "owner"
+// });
 
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({

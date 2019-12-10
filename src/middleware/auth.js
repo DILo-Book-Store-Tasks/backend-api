@@ -29,16 +29,12 @@ const checkRole = async (req, res, next) => {
     try {
         const token = req.header("Authorization").replace("Bearer ", "");
         const decoded = jwt.verify(token, process.env.KEY_AUTH);
-        // console.log(decoded.role)
-        // Role.findOne({
-        //         _id: decoded.role
-        //     })
-        //     .exec()
-        //     .then(result => console.log(result))
-        //     .catch(err => console.log(err));
 
-
-        if (decoded.role === 'admin') {
+        const check = await Role.findOne({
+            _id: decoded.role   
+        });
+       
+        if (check.role === 'admin') {
             next()
         } else {
             res.status(401).send({
