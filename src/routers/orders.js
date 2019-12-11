@@ -19,8 +19,8 @@ router.post("/orders", auth.auth, async (req, res, next) => {
     });
 });
 
-router.get("/orders", async (req, res, next) => {
-  await Order.find({})
+router.get("/orders", auth.auth, async (req, res, next) => {
+  await Order.find({ user: req.body.user })
     .select("_id books createdAt updatedAt")
     .populate("books.book", "book_name genre author price")
     .populate("user", "_id name email")
@@ -44,6 +44,21 @@ router.get("/orders", async (req, res, next) => {
           error: error
         }
       });
+    });
+});
+
+router.patch("/orders/pay", auth.auth, async (req, res, next) => {
+  await Order.findOneAndUpdate(
+    { user: req.body.user },
+    { $set: { is_done: true } }
+  )
+    .then(result => {
+      res
+        .status(201)
+        .send({ success: true, message: "Order Berhasil Terbayar" });
+    })
+    .catch(error => {
+      res.status(500).send({ error: error });
     });
 });
 
