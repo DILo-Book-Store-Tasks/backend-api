@@ -24,7 +24,7 @@ router.post("/books", auth.auth, auth.checkRole, async (req, res, next) => {
 
 router.get("/books", auth.auth, auth.checkRole, async (req, res) => {
     try {
-        const books = await Book.find({}).select("_id book_name genre qty price");
+        const books = await Book.find({}).select("_id book_name genre desc qty price");
         res.status(200).send(books);
     } catch (e) {
         res.status(500).send();

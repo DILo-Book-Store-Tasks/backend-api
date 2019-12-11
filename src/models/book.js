@@ -17,6 +17,11 @@ const bookSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
+    desc: {
+        type: String,
+        required: true,
+        trim: true,
+    },
     qty: {
         type: String,
         required: true,
