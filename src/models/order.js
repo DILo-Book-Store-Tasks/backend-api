@@ -17,6 +17,11 @@ const orderSchema = new Schema(
         }
       }
     ],
+    is_done: {
+      type: Boolean,
+      required: true,
+      default: false
+    },
     total: {
       required: true,
       type: Number,

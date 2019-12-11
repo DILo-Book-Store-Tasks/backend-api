@@ -15,7 +15,7 @@ router.get("/roles", auth.checkRole, async (req, res, next) => {
     }
 });
 
-router.post("/roles", auth.auth, auth.checkRole, async (req, res, next) => {
+router.post("/roles", async (req, res, next) => {
     try {
         const role = new Role(req.body)
         await role.save()
