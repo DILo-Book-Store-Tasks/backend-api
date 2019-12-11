@@ -157,5 +157,24 @@ router.get("/users/:id/avatar", async (req, res) => {
     });
   }
 });
+router.patch('/users/:id', auth.auth, auth.checkRole, async (req, res) => {
+    
+    try {
+        var update = req.body
+        var id = req.params.id
+
+        const users = await User.findOneAndUpdate({_id  : id}, {$set: update});  
+        if(users){
+            res.status(201).send({
+                success: true,
+                message: "User has been Updated!"
+            })
+        }  
+    } catch (error) {
+        res.status(500).send({
+            message: "Updated failed"
+        });
+    }
+});
 
 module.exports = router;
