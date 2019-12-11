@@ -24,8 +24,14 @@ router.post("/books", auth.auth, auth.checkRole, async (req, res, next) => {
 
 router.get("/books", auth.auth, auth.checkRole, async (req, res) => {
     try {
-        const books = await Book.find({}).select("_id book_name genre desc qty price");
-        res.status(200).send(books);
+        await Book.find({})
+        .select("_id book_name desc qty price")
+        // ..and populate all of the notes associated with it
+        .populate("genre" , "_id genre")
+        .exec(function (err, books) {
+          if (err) return handleError(err);
+            res.status(200).send(books);
+          })
     } catch (e) {
         res.status(500).send();
     }
