@@ -8,6 +8,7 @@ const app = express();
 const port = process.env.PORT || 8081;
 
 // Package
+app.use("/uploads", express.static("uploads"));
 app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
