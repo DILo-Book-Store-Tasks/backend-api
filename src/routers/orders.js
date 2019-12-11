@@ -1,8 +1,9 @@
 const express = require("express");
 const router = new express.Router();
 const Order = require("../models/order");
+const auth = require("../middleware/auth");
 
-router.post("/orders", async (req, res, next) => {
+router.post("/orders", auth.auth, async (req, res, next) => {
   const order = new Order(req.body);
   await order
     .save()
@@ -22,13 +23,17 @@ router.get("/orders", async (req, res, next) => {
   await Order.find({})
     .select("_id books createdAt updatedAt")
     .populate("books.book", "book_name genre author price")
-    .populate("user", "_id name")
+    .populate("user", "_id name email")
     .exec()
     .then(orders => {
       res.status(200).send({
         success: true,
         message: {
-          orders: orders
+          orders: orders.map((v, i) => {
+            return {
+              order: v
+            };
+          })
         }
       });
     })
