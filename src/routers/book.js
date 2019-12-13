@@ -53,7 +53,7 @@ router.post("/books", auth.auth, auth.checkRole ,upload.single("cover"), async (
 router.get("/books", async (req, res) => {
     try {
         await Book.find({})
-        .select("_id book_name desc cover qty price")
+        .select("_id book_name desc cover author qty price")
         // ..and populate all of the notes associated with it
         .populate("genre" , "_id genre")
         .exec(function (err, books) {
