@@ -50,10 +50,10 @@ router.post("/books", auth.auth, auth.checkRole ,upload.single("cover"), async (
     }
 })
 
-router.get("/books", auth.auth, auth.checkRole, async (req, res) => {
+router.get("/books", async (req, res) => {
     try {
         await Book.find({})
-        .select("_id book_name desc qty price")
+        .select("_id book_name desc cover qty price")
         // ..and populate all of the notes associated with it
         .populate("genre" , "_id genre")
         .exec(function (err, books) {
