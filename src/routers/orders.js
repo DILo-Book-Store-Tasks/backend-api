@@ -19,7 +19,9 @@ router.post("/orders", auth.auth, async (req, res, next) => {
     });
 });
 
-router.get("/orders", auth.auth, async (req, res, next) => {
+router.post("/orders_data", auth.auth, async (req, res, next) => {
+  console.log(req.body)
+  console.log("masuk")
   await Order.find({ user: req.body.user })
     .select("_id books createdAt updatedAt")
     .populate("books.book", "book_name genre author price")
