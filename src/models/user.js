@@ -8,12 +8,12 @@ const userSchema = new mongoose.Schema(
   {
     first_name: {
       type: String,
-      required: true,
+      required: false,
       trim: true
     },
     last_name: {
       type: String,
-      required: true,
+      required: false,
       trim: true
     },
     email: {
@@ -79,8 +79,17 @@ userSchema.methods.generateAuthToken = async function() {
   user.tokens = user.tokens.concat({
     token
   });
-  user.save();
-  // await user.save();
+
+  try {
+    let saveUser = await user.save();; //when fail its goes to catch
+    console.log(saveUser); //when success it print.
+    console.log('after save');
+  } catch (err) {
+    console.log('err' + err);
+    res.status(500).send(err);
+  }
+  // user.save();
+  
 
   return token;
 };
