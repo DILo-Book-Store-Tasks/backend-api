@@ -6,7 +6,12 @@ const Book = require("./book");
 
 const userSchema = new mongoose.Schema(
   {
-    name: {
+    first_name: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    last_name: {
       type: String,
       required: true,
       trim: true
@@ -44,6 +49,14 @@ const userSchema = new mongoose.Schema(
       }
     ],
     avatar: {
+      type: String,
+      required: false
+    },
+    address: {
+      type: String,
+      required: false
+    },
+    phone: {
       type: String,
       required: false
     }
