@@ -62,4 +62,6 @@ router.patch("/orders/pay", auth.auth, async (req, res, next) => {
     });
 });
 
+router.delete("/orders", auth.checkMaker, async (req, res, next) => {});
+
 module.exports = router;
