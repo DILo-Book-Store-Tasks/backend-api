@@ -48,7 +48,7 @@ router.post("/users", upload.single("avatar"), async (req, res) => {
 
 router.get("/users", auth.auth, auth.checkRole, async (req, res) => {
   try {
-    const users = await User.find({}).select("_id email name role");
+    const users = await User.find({}).select("_id email first_name last_name address phone role");
     res.status(200).send(users);
   } catch (e) {
     res.status(500).send();
