@@ -65,6 +65,22 @@ router.get("/books", async (req, res) => {
     }
 });
 
+router.get("/book/:id", async (req, res) => {
+    var id = req.params.id
+    try {
+        await Book.find({ _id : id})
+        .select("_id book_name desc cover author qty price")
+        // ..and populate all of the notes associated with it
+        .populate("genre" , "_id genre")
+        .exec(function (err, books) {
+          if (err) return handleError(err);
+            res.status(200).send(books);
+          })
+    } catch (e) {
+        res.status(500).send();
+    }
+});
+
 router.delete("/books", auth.auth, auth.checkRole, async (req, res) => {
     try {
         const books = await Book.findOneAndDelete(req.body); // null
